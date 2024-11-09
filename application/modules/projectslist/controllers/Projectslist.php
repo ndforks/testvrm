@@ -13,7 +13,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Class Clients
  */
-class Clients extends Admin_Controller
+class Projectslist extends Admin_Controller
 {
     /**
      * Clients constructor.
@@ -27,8 +27,9 @@ class Clients extends Admin_Controller
 
     public function index()
     {
+        print_r("active");
         // Display active clients by default
-        redirect('projectlist/status/active');
+        redirect('projectslist/status/active');
     }
 
     /**
@@ -37,12 +38,17 @@ class Clients extends Admin_Controller
      */
     public function status($status = 'active', $page = 0)
     {
+
+        print_r("active");
+        die("die");
+
+
         if (is_numeric(array_search($status, array('active', 'inactive')))) {
             $function = 'is_' . $status;
             $this->mdl_clients->$function();
         }
 
-        $this->mdl_clients->with_total_balance()->paginate(site_url('projectlist/status/' . $status), $page);
+        $this->mdl_clients->with_total_balance()->paginate(site_url('projectslist/status/' . $status), $page);
         $clients = $this->mdl_clients->result();
 
         $this->layout->set(
